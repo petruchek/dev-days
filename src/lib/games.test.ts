@@ -8,6 +8,12 @@ import {
     getGameById,
 } from './games';
 
+/**
+ * Seeds a small catalog spanning multiple categories and publishers for filter tests.
+ *
+ * @param db - The in-memory database to seed.
+ * @returns IDs for the inserted categories and publishers.
+ */
 async function seedFilteredGames(db: Database): Promise<{
     strategyCategoryId: number;
     puzzleCategoryId: number;

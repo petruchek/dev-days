@@ -37,4 +37,17 @@ test.describe('Home Page', () => {
     await page.getByRole('button', { name: 'Clear filters' }).click();
     await expect(page.getByRole('link', { name: /Code Puzzle Chronicles/i })).toBeVisible();
   });
+
+  test('should show games from every selected category', async ({ page }) => {
+    await test.step('Select two categories', async () => {
+      await page.getByRole('checkbox', { name: 'Strategy' }).check();
+      await page.getByRole('checkbox', { name: 'Puzzle' }).check();
+    });
+
+    await test.step('Verify results include both categories', async () => {
+      await expect(page.getByRole('link', { name: /DevOps Dominion/i })).toBeVisible();
+      await expect(page.getByRole('link', { name: /Code Puzzle Chronicles/i })).toBeVisible();
+      await expect(page.getByTestId('game-results-count')).toHaveText('8 games shown');
+    });
+  });
 });
