@@ -71,7 +71,14 @@ const publishers = await getAllPublishers(getDatabase());
           >
             Clear filters
           </button>
-          <span data-testid="game-results-count" class="text-sm text-slate-300">{games.length} games shown</span>
+          <span
+            data-testid="game-results-count"
+            class="text-sm text-slate-300"
+            role="status"
+            aria-live="polite"
+          >
+            {games.length} games shown
+          </span>
         </div>
       </form>
     </div>
@@ -106,7 +113,10 @@ const publishers = await getAllPublishers(getDatabase());
   const resultCount = document.querySelector<HTMLElement>('[data-testid="game-results-count"]');
   const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-game-card]'));
 
-  const updateFilters = () => {
+  /**
+   * Shows only game cards matching the selected filters and announces the result count.
+   */
+  const updateFilters = (): void => {
     const selectedCategories = filterInputs
       .filter((input) => input.checked)
       .map((input) => Number(input.value));
